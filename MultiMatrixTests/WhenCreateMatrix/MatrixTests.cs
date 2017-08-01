@@ -2,7 +2,7 @@
 using MultiMatrix;
 using NUnit.Framework;
 
-namespace MultiMatrixTests {
+namespace MultiMatrixTests.WhenCreateMatrix {
     [TestFixture]
     public class MatrixTests {
         [Test]
@@ -21,6 +21,15 @@ namespace MultiMatrixTests {
             matrix[new Point(1, 1)]
                     .Should()
                     .BeNull();
+        }
+
+        [Test]
+        public void ByDefaultBoundsEqualsSize() {
+            var matrix = new Matrix<TestClass>(new Size(5, 5));
+
+            matrix.Bound
+                  .Should()
+                  .Be(new Rectangle(new Point(0, 0), new Point(4, 4)));
         }
 
         public class TestClass { }

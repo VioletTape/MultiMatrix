@@ -7,5 +7,11 @@ namespace MultiMatrix {
             Width = width;
             Height = height;
         }
+
+        public Point AsPoint() {
+            return new Point(Width, Height);
+        }
     }
+
+    
 }

@@ -1,22 +1,25 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace MultiMatrix {
     public class MultiMatrix<T> {
         private readonly Size elementalMatrixSize;
-        private Matrix<T> selectedMatrix;
+        private Matrix<T> matrix;
         private Point zeroPointOffset;
+        internal List<Matrix<T>> matricies = new List<Matrix<T>>();
 
 
         public MultiMatrix(Size elementalMatrixSize) {
             this.elementalMatrixSize = elementalMatrixSize;
 
-            selectedMatrix = new Matrix<T>(elementalMatrixSize);
+            matrix = new Matrix<T>(elementalMatrixSize);
+            matrix.IsWorldCenter = true;
+            matricies.Add(matrix);
         }
 
         public T this[Point point] {
             get {
-                    
-                return selectedMatrix[point+zeroPointOffset];
+                return matrix[point+zeroPointOffset];
             }
         }
 
@@ -25,8 +28,17 @@ namespace MultiMatrix {
             return true;
         }
 
+        public bool CreateNewAt(Side side) {
+            var isMatrixWasCreated = matrix.SetNeighborAt(side);
+            if (isMatrixWasCreated) {
+                matricies.Add(matrix.GetNeighborAt(side));
+            }
+
+            return isMatrixWasCreated;
+        }
+
         public void FillWith(Func<int, int, T> func) {
-            selectedMatrix.FillWith(func);
+            matrix.FillWith(func);
         }
     }
 }
