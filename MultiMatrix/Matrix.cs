@@ -4,9 +4,9 @@ using System.Collections.Generic;
 namespace MultiMatrix {
     internal class Matrix<T> {
         private readonly Size size;
-       
+
         private readonly T[,] m;
-       
+
 
         private readonly List<Matrix<T>> neighbors = new List<Matrix<T>>(4) {
                                                                                 null
@@ -20,7 +20,7 @@ namespace MultiMatrix {
 
         public Matrix(Size size) {
             this.size = size;
-            Bound = new Rectangle(new Point(0,0), new Point(size.Height-1, size.Width-1));
+            Bound = new Rectangle(new Point(0, 0), new Point(size.Height - 1, size.Width - 1));
             m = new T[size.Width, size.Height];
         }
 
@@ -32,12 +32,24 @@ namespace MultiMatrix {
 
         public T this[Point point] {
             get {
-                if(Bound.Contains(point))
-                    return m[point.X, point.Y];
+                if (Bound.Contains(point)) {
+                    var targetPoint = IsWorldCenter
+                                          ? point
+                                          : new Point(Bound.RightBottom.X - point.X, Bound.RightBottom.Y - point.Y);
+                    return m[targetPoint.X, targetPoint.Y];
+                }
 
                 return default(T);
             }
-        } 
+            set {
+                if (Bound.Contains(point)) {
+                    var targetPoint = IsWorldCenter
+                                          ? point
+                                          : new Point(Bound.RightBottom.X - point.X, Bound.RightBottom.Y - point.Y);
+                    m[targetPoint.X, targetPoint.Y] = value;
+                }
+            }
+        }
 
         public void FillWith(Func<int, int, T> func) {
             for (var x = 0; x < size.Width; x++)
@@ -63,7 +75,7 @@ namespace MultiMatrix {
                 return Bound - new Point(size.Width, 0);
             }
 
-            if(side == Side.Right){
+            if (side == Side.Right) {
                 return Bound + new Point(size.Width, 0);
             }
 
@@ -72,7 +84,6 @@ namespace MultiMatrix {
             }
 
             return Bound - new Point(0, size.Height);
-
         }
     }
 }

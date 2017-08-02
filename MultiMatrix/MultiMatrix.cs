@@ -19,7 +19,14 @@ namespace MultiMatrix {
 
         public T this[Point point] {
             get {
-                return matrix[point+zeroPointOffset];
+                var targetPoint = point+zeroPointOffset;
+                var targetMatrix = matricies.Find(m => m.Bound.Contains(targetPoint)) ?? matrix;
+                return targetMatrix[targetPoint];
+            }
+            set {
+                var targetPoint = point+zeroPointOffset;
+                var targetMatrix = matricies.Find(m => m.Bound.Contains(targetPoint)) ?? matrix;
+                targetMatrix[targetPoint] = value;
             }
         }
 

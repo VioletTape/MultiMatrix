@@ -1,27 +1,27 @@
 namespace MultiMatrix {
     public struct Rectangle {
-        private readonly Point leftTop;
-        private readonly Point rightBottom;
+        public readonly Point LeftTop;
+        public readonly Point RightBottom;
 
         public Rectangle(Point leftTop, Point rightBottom) {
-            this.leftTop = leftTop;
-            this.rightBottom = rightBottom;
+            this.LeftTop = leftTop;
+            this.RightBottom = rightBottom;
         }
 
         public bool Contains(Point point) {
-            return leftTop <= point && point <= rightBottom;
+            return LeftTop <= point && point <= RightBottom;
         }
 
         public static Rectangle operator -(Rectangle rect, Point shift) {
-            return new Rectangle(rect.leftTop - shift, rect.rightBottom - shift);
+            return new Rectangle(rect.LeftTop - shift, rect.RightBottom - shift);
         }
 
         public static Rectangle operator +(Rectangle rect, Point shift) {
-            return new Rectangle(rect.leftTop + shift, rect.rightBottom + shift);
+            return new Rectangle(rect.LeftTop + shift, rect.RightBottom + shift);
         }
 
         public override string ToString() {
-            return "{ TL= " + leftTop + ",  BR= " + rightBottom + "}";
+            return "{ TL= " + LeftTop + ",  BR= " + RightBottom + "}";
         }
     }
 }

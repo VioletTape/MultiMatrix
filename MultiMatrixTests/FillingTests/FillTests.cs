@@ -6,7 +6,7 @@ namespace MultiMatrixTests.FillingTests {
     [TestFixture]
     public class FillTests {
         [Test]
-        public void FillWithFunc() {
+        public void FillWithFuncInitialMatrix() {
             // arrange 
             var map = new MultiMatrix<int>(new Size(5,5));
 
@@ -20,8 +20,9 @@ namespace MultiMatrixTests.FillingTests {
                                 .Be(1);
             map[new Point(4, 4)].Should()
                                 .Be(16);
-
         }
+
+       
     }
 }
     
