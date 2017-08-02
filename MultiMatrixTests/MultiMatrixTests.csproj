@@ -57,6 +57,7 @@
     <Compile Include="StructTests\RectangleTests.cs" />
     <Compile Include="WhenExpandMatrix\Then.cs" />
     <Compile Include="WhenExpandMatrix\MultimatrixShouldStoreNewMatrix.cs" />
+    <Compile Include="WhenGetPoint\FromMatrix.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

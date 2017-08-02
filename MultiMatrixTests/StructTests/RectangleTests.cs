@@ -12,8 +12,10 @@ namespace MultiMatrixTests.StructTests {
         [TestCase(5,0)]
         [TestCase(5,5)]
         public void ContainsPoint(int x, int y) {
+            // arrange
             var rectangle = new Rectangle(new Point(0,0), new Point(5,5));
 
+            // act & assert
             rectangle.Contains(new Point(x,y))
                      .Should()
                      .BeTrue();
@@ -24,8 +26,10 @@ namespace MultiMatrixTests.StructTests {
         [TestCase(6,6)]
         [TestCase(-1,2)]
         public void NotContainsPoint(int x, int y) {
+            // arrange
             var rectangle = new Rectangle(new Point(0,0), new Point(5,5));
 
+            // act & assert
             rectangle.Contains(new Point(x,y))
                      .Should()
                      .BeFalse();

@@ -35,6 +35,7 @@ namespace MultiMatrixTests.WhenExpandMatrix {
                   .Should()
                   .BeTrue();
 
+            // assert
             matrix.SetNeighborAt(side)
                   .Should()
                   .BeFalse();
@@ -49,9 +50,10 @@ namespace MultiMatrixTests.WhenExpandMatrix {
             // arrange 
             var matrix = new Matrix<int>(new Size(5,5));
 
+            // act
             matrix.SetNeighborAt(side);
 
-
+            // assert
             matrix.GetNeighborAt(side).Bound
                   .Should()
                   .Be(matrix.Bound + new Point(x, y));
