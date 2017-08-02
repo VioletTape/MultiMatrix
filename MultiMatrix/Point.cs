@@ -1,7 +1,7 @@
 namespace MultiMatrix {
     public struct Point {
-        public int X;
-        public int Y;
+        public readonly int X;
+        public readonly int Y;
 
         public Point(int x, int y) {
             X = x;

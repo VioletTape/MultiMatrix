@@ -32,6 +32,8 @@ namespace MultiMatrix {
             return true;
         }
 
+
+
         public bool CreateNewAt(Side side) {
             var isMatrixWasCreated = matrix.SetNeighborAt(side);
             if (isMatrixWasCreated) {
