@@ -33,5 +33,21 @@ namespace MultiMatrixTests.RelativeCoordTests {
             map[new Point(-1, -1)].Should()
                                 .Be(2);
         }
+
+        [Test]
+        public void ShouldUseOffsetOfZeroPointForMultimatrix() {
+            // arrange 
+            var map = new MultiMatrix<int>(new Size(9,9));
+            map.FillWith((x,y) => x+y);
+
+            // act 
+            map.SetZeroPoint(new Point(2,2), true);
+
+            map.CreateNewAt(Side.Right);
+
+            // assert
+            map[new Point(9,0)].Should()
+                                .Be(9+2+2);
+        }
     }
 }

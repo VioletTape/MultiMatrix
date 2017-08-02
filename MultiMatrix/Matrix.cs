@@ -17,6 +17,7 @@ namespace MultiMatrix {
 
         internal Rectangle Bound;
         internal bool IsWorldCenter;
+        private Func<int, int, T> fillFunc = (_, __) => default(T);
 
         public Matrix(Size size) {
             this.size = size;
@@ -33,9 +34,7 @@ namespace MultiMatrix {
         public T this[Point point] {
             get {
                 if (Bound.Contains(point)) {
-                    var targetPoint = IsWorldCenter
-                                          ? point
-                                          : new Point(Bound.RightBottom.X - point.X, Bound.RightBottom.Y - point.Y);
+                    var targetPoint = GetLocalCoord(point);
                     return m[targetPoint.X, targetPoint.Y];
                 }
 
@@ -43,24 +42,30 @@ namespace MultiMatrix {
             }
             set {
                 if (Bound.Contains(point)) {
-                    var targetPoint = IsWorldCenter
-                                          ? point
-                                          : new Point(Bound.RightBottom.X - point.X, Bound.RightBottom.Y - point.Y);
+                    var targetPoint = GetLocalCoord(point);
                     m[targetPoint.X, targetPoint.Y] = value;
                 }
             }
         }
 
+        private Point GetLocalCoord(Point globalCoord) {
+            return IsWorldCenter
+                                  ? globalCoord
+                                  : new Point(globalCoord.X - Bound.LeftTop.X, globalCoord.Y - Bound.LeftTop.Y);
+        }
+
         public void FillWith(Func<int, int, T> func) {
-            for (var x = 0; x < size.Width; x++)
-            for (var y = 0; y < size.Height; y++) {
-                m[x, y] = func(x, y);
+            fillFunc = func;
+            for (int lx = 0, x = Bound.LeftTop.X; x <= Bound.RightBottom.X; x++, lx++)
+            for (int ly = 0, y = Bound.LeftTop.Y; y <= Bound.RightBottom.Y; y++, ly++) {
+                m[lx, ly] = func(x, y);
             }
         }
 
         public bool SetNeighborAt(Side side) {
             if (neighbors[(int) side] == null) {
                 neighbors[(int) side] = new Matrix<T>(size, GetBounds(side));
+                neighbors[(int) side].FillWith(fillFunc);
                 return true;
             }
             return false;
