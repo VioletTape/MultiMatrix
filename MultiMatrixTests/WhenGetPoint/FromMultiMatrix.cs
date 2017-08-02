@@ -11,8 +11,10 @@ namespace MultiMatrixTests.WhenGetPoint {
             matrix[new Point(9, 0)] = 1;
             matrix[new Point(9, 0)].Should().Be(0, "no matrix address that point");
 
+            // act
             matrix.CreateNewAt(Side.Right);
 
+            // assert
             matrix[new Point(9, 0)] = 1;
             matrix[new Point(9, 0)].Should().Be(1, "now matrix exists at right side from original one");
         }
@@ -25,8 +27,9 @@ namespace MultiMatrixTests.WhenGetPoint {
 
             matrix.CreateNewAt(Side.Left);
 
+            // assert
             matrix[new Point(-5, 0)] = 1;
-            matrix[new Point(-5, 0)].Should().Be(1, "now matrix exists at right side from original one");
+            matrix[new Point(-5, 0)].Should().Be(1, "now matrix exists at Left side from original one");
         }
 
         [Test]
@@ -35,10 +38,12 @@ namespace MultiMatrixTests.WhenGetPoint {
             matrix[new Point(0, 9)] = 1;
             matrix[new Point(0, 9)].Should().Be(0, "no matrix address that point");
 
+            // act
             matrix.CreateNewAt(Side.Top);
 
+            // assert
             matrix[new Point(0, 9)] = 1;
-            matrix[new Point(0, 9)].Should().Be(1, "now matrix exists at right side from original one");
+            matrix[new Point(0, 9)].Should().Be(1, "now matrix exists at top side from original one");
         }
 
         [Test]
@@ -47,10 +52,12 @@ namespace MultiMatrixTests.WhenGetPoint {
             matrix[new Point(0, -5)] = 1;
             matrix[new Point(0, -5)].Should().Be(0, "no matrix address that point");
 
+            // act
             matrix.CreateNewAt(Side.Bottom);
 
+            // assert
             matrix[new Point(0, -5)] = 1;
-            matrix[new Point(0, -5)].Should().Be(1, "now matrix exists at right side from original one");
+            matrix[new Point(0, -5)].Should().Be(1, "now matrix exists at bottom side from original one");
         }
     }
 }

@@ -3,15 +3,12 @@ using System.Collections.Generic;
 
 namespace MultiMatrix {
     public class MultiMatrix<T> {
-        private readonly Size elementalMatrixSize;
         private Matrix<T> matrix;
         private Point zeroPointOffset;
         internal List<Matrix<T>> matricies = new List<Matrix<T>>();
 
 
         public MultiMatrix(Size elementalMatrixSize) {
-            this.elementalMatrixSize = elementalMatrixSize;
-
             matrix = new Matrix<T>(elementalMatrixSize);
             matrix.IsWorldCenter = true;
             matricies.Add(matrix);
