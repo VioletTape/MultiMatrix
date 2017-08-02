@@ -32,7 +32,24 @@ namespace MultiMatrix {
             return true;
         }
 
+        public bool SetActiveMatrixBy(Point point) {
+            var targetmatrix = matricies.Find(m => m.Bound.Contains(point));
+            if (targetmatrix == null)
+                return false;
 
+            matrix = targetmatrix;
+            return true;
+        }
+
+
+        public bool SetActiveMatrixBy(Side side) {
+            var neighborAt = matrix.GetNeighborAt(side);
+            if (neighborAt == null)
+                return false;
+
+            matrix = neighborAt;
+            return true;
+        }
 
         public bool CreateNewAt(Side side) {
             var isMatrixWasCreated = matrix.SetNeighborAt(side);

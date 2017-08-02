@@ -50,6 +50,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="FillingTests\FillTests.cs" />
+    <Compile Include="IntegrationTests\GettingValue.cs" />
     <Compile Include="WhenCreateMatrix\MatrixTests.cs" />
     <Compile Include="WhenCreateMatrix\MultiMatrixCreateTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

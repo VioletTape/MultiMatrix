@@ -22,5 +22,58 @@ namespace MultiMatrixTests.WhenExpandMatrix {
                   .Should()
                   .Be(2);
         }
+
+       
+    }
+
+    [TestFixture]
+    public class WhenSetNewAcitveMatrix {
+        [Test]
+        public void WithCorrectCoordinatesItShouldChanges() {
+            var matrix = new MultiMatrix<int>(new Size(5,5));
+
+            matrix.CreateNewAt(Side.Right);
+            matrix.SetActiveMatrixBy(new Point(6, 0));
+            matrix.CreateNewAt(Side.Right);
+
+            matrix.matricies.Count
+                  .Should()
+                  .Be(3);
+        }
+
+        [Test]
+        public void ShouldBeAbleSetPointingSide() {
+            var matrix = new MultiMatrix<int>(new Size(5,5));
+
+            matrix.CreateNewAt(Side.Right);
+            matrix.SetActiveMatrixBy(Side.Right);
+            matrix.CreateNewAt(Side.Right);
+
+            matrix.matricies.Count
+                  .Should()
+                  .Be(3);
+        }
+
+        [Test]
+        public void IfSetSuccessfullShouldReturnTrue() {
+            var matrix = new MultiMatrix<int>(new Size(5,5));
+
+            matrix.CreateNewAt(Side.Right);
+
+            matrix.SetActiveMatrixBy(new Point(6, 0))
+                  .Should()
+                  .BeTrue();
+        }
+
+        [Test]
+        public void IfSetUnsuccessfullShouldReturnFalse() {
+            var matrix = new MultiMatrix<int>(new Size(5,5));
+
+            matrix.SetActiveMatrixBy(new Point(6, 0))
+                  .Should()
+                  .BeFalse();
+        }
+
+
     }
 }
