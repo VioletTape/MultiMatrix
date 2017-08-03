@@ -21,7 +21,7 @@ namespace MultiMatrix {
 
         public Matrix(Size size) {
             this.size = size;
-            Bound = new Rectangle(new Point(0, 0), new Point(size.Height - 1, size.Width - 1));
+            Bound = new Rectangle(new Point(0, 0), new Point(size.Width - 1, size.Height - 1));
             m = new T[size.Width, size.Height];
         }
 
