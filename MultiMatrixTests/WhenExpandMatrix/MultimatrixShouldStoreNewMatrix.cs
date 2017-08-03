@@ -18,7 +18,7 @@ namespace MultiMatrixTests.WhenExpandMatrix {
             matrix.CreateNewAt(side);
 
             // assert
-            matrix.matricies.Count
+            matrix.Matricies.Count
                   .Should()
                   .Be(2);
         }
@@ -36,7 +36,7 @@ namespace MultiMatrixTests.WhenExpandMatrix {
             matrix.SetActiveMatrixBy(new Point(6, 0));
             matrix.CreateNewAt(Side.Right);
 
-            matrix.matricies.Count
+            matrix.Matricies.Count
                   .Should()
                   .Be(3);
         }
@@ -49,7 +49,7 @@ namespace MultiMatrixTests.WhenExpandMatrix {
             matrix.SetActiveMatrixBy(Side.Right);
             matrix.CreateNewAt(Side.Right);
 
-            matrix.matricies.Count
+            matrix.Matricies.Count
                   .Should()
                   .Be(3);
         }

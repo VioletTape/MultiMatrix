@@ -11,7 +11,7 @@ namespace MultiMatrixTests.WhenCreateMatrix {
             var matrix = new MultiMatrix<int>(new Size(5, 5));
 
             // assert
-            matrix.matricies.Count
+            matrix.Matricies.Count
                   .Should()
                   .Be(1);
         }
@@ -22,7 +22,7 @@ namespace MultiMatrixTests.WhenCreateMatrix {
             var matrix = new MultiMatrix<int>(new Size(5, 5));
 
             // assert
-            matrix.matricies[0].IsWorldCenter
+            matrix.Matricies[0].IsWorldCenter
                   .Should()
                   .BeTrue();
         }

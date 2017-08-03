@@ -5,25 +5,35 @@ namespace MultiMatrix {
     public class MultiMatrix<T> {
         private Matrix<T> matrix;
         private Point zeroPointOffset;
-        internal List<Matrix<T>> matricies = new List<Matrix<T>>();
+        internal readonly List<Matrix<T>> Matricies = new List<Matrix<T>>();
 
 
         public MultiMatrix(Size elementalMatrixSize) {
             matrix = new Matrix<T>(elementalMatrixSize);
             matrix.IsWorldCenter = true;
-            matricies.Add(matrix);
+            Matricies.Add(matrix);
         }
 
         public T this[Point point] {
             get {
                 var targetPoint = point+zeroPointOffset;
-                var targetMatrix = matricies.Find(m => m.Bound.Contains(targetPoint)) ?? matrix;
-                return targetMatrix[targetPoint];
+
+                if (matrix.Bound.Contains(targetPoint)) {
+                    return matrix[targetPoint];
+                }
+
+                matrix = Matricies.Find(m => m.Bound.Contains(targetPoint)) ?? matrix;
+                return matrix[targetPoint];
             }
             set {
                 var targetPoint = point+zeroPointOffset;
-                var targetMatrix = matricies.Find(m => m.Bound.Contains(targetPoint)) ?? matrix;
-                targetMatrix[targetPoint] = value;
+
+                if (matrix.Bound.Contains(targetPoint)) {
+                    matrix[targetPoint] = value;
+                    return;
+                }
+                matrix = Matricies.Find(m => m.Bound.Contains(targetPoint)) ?? matrix;
+                matrix[targetPoint] = value;
             }
         }
 
@@ -33,7 +43,7 @@ namespace MultiMatrix {
         }
 
         public bool SetActiveMatrixBy(Point point) {
-            var targetmatrix = matricies.Find(m => m.Bound.Contains(point));
+            var targetmatrix = Matricies.Find(m => m.Bound.Contains(point));
             if (targetmatrix == null)
                 return false;
 
@@ -54,7 +64,7 @@ namespace MultiMatrix {
         public bool CreateNewAt(Side side) {
             var isMatrixWasCreated = matrix.SetNeighborAt(side);
             if (isMatrixWasCreated) {
-                matricies.Add(matrix.GetNeighborAt(side));
+                Matricies.Add(matrix.GetNeighborAt(side));
             }
 
             return isMatrixWasCreated;

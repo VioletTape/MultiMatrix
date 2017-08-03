@@ -16,8 +16,24 @@ namespace MultiMatrix {
                                                                             };
 
         internal Rectangle Bound;
-        internal bool IsWorldCenter;
+
+        internal bool IsWorldCenter {
+            get => isWorldCenter;
+            set {
+                isWorldCenter = value;
+                if (isWorldCenter) {
+                    GetLocalCoord = p => p;
+                }
+                else {
+                    GetLocalCoord = p => new Point(p.X - Bound.LeftTop.X, p.Y - Bound.LeftTop.Y);
+                }
+                   
+            }
+        }
+
         private Func<int, int, T> fillFunc = (_, __) => default(T);
+        private Func<Point, Point> GetLocalCoord;
+        private bool isWorldCenter;
 
         public Matrix(Size size) {
             this.size = size;
@@ -29,29 +45,19 @@ namespace MultiMatrix {
             this.size = size;
             Bound = bound;
             m = new T[size.Width, size.Height];
+
+            GetLocalCoord = p => new Point(p.X - Bound.LeftTop.X, p.Y - Bound.LeftTop.Y);
         }
 
         public T this[Point point] {
             get {
-                if (Bound.Contains(point)) {
                     var targetPoint = GetLocalCoord(point);
                     return m[targetPoint.X, targetPoint.Y];
-                }
-
-                return default(T);
             }
             set {
-                if (Bound.Contains(point)) {
                     var targetPoint = GetLocalCoord(point);
                     m[targetPoint.X, targetPoint.Y] = value;
-                }
             }
-        }
-
-        private Point GetLocalCoord(Point globalCoord) {
-            return IsWorldCenter
-                                  ? globalCoord
-                                  : new Point(globalCoord.X - Bound.LeftTop.X, globalCoord.Y - Bound.LeftTop.Y);
         }
 
         public void FillWith(Func<int, int, T> func) {
