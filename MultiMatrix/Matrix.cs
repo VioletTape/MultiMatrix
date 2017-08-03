@@ -39,6 +39,8 @@ namespace MultiMatrix {
             this.size = size;
             Bound = new Rectangle(new Point(0, 0), new Point(size.Width - 1, size.Height - 1));
             m = new T[size.Width, size.Height];
+
+            GetLocalCoord = p => new Point(p.X - Bound.LeftTop.X, p.Y - Bound.LeftTop.Y);
         }
 
         internal Matrix(Size size, Rectangle bound) {

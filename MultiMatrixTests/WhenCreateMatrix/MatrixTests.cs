@@ -9,6 +9,7 @@ namespace MultiMatrixTests.WhenCreateMatrix {
         public void CouldGetValItemByPoint() {
             // arrange
             var matrix = new Matrix<int>(new Size(5, 5));
+            matrix.IsWorldCenter = true;
 
             // assert
             matrix[new Point(1, 1)]
@@ -20,6 +21,7 @@ namespace MultiMatrixTests.WhenCreateMatrix {
         public void CouldGetRefItemByPoint() {
             // arrange
             var matrix = new Matrix<TestClass>(new Size(5, 5));
+            matrix.IsWorldCenter = true;
 
             // assert
             matrix[new Point(1, 1)]
@@ -31,6 +33,7 @@ namespace MultiMatrixTests.WhenCreateMatrix {
         public void BoundsShouldBeEqualToSize() {
             // arrange
             var matrix = new Matrix<TestClass>(new Size(5, 5));
+            matrix.IsWorldCenter = true;
 
             // assert
             matrix.Bound

@@ -18,8 +18,14 @@ namespace MultiMatrix {
             get {
                 var targetPoint = point+zeroPointOffset;
 
-                if (matrix.Bound.Contains(targetPoint)) {
+//                if (matrix.Bound.Contains(targetPoint)) {
+//                    return matrix[targetPoint];
+//                }
+
+                try {
                     return matrix[targetPoint];
+                }
+                catch (IndexOutOfRangeException e) {
                 }
 
                 matrix = Matricies.Find(m => m.Bound.Contains(targetPoint)) ?? matrix;
@@ -28,10 +34,13 @@ namespace MultiMatrix {
             set {
                 var targetPoint = point+zeroPointOffset;
 
-                if (matrix.Bound.Contains(targetPoint)) {
+                try {
                     matrix[targetPoint] = value;
                     return;
                 }
+                catch (IndexOutOfRangeException e) {
+                }
+
                 matrix = Matricies.Find(m => m.Bound.Contains(targetPoint)) ?? matrix;
                 matrix[targetPoint] = value;
             }
